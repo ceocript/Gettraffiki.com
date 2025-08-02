@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gettraffiki.com - Dobre seu ROI com Inteligência Artificial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #0d0d1a; /* Fundo escuro */
+        color: #d1d1f0; /* Cor do texto padrão */
+        overflow-x: hidden; /* Evita a barra de rolagem horizontal */
+      }
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .gradient-neon {
+        background-image: linear-gradient(to right, #0ff, #f0f);
+      }
+      .text-neon-cyan {
+        color: #0ff;
+        text-shadow: 0 0 3px rgba(0, 255, 255, 0.7),
+          0 0 8px rgba(0, 255, 255, 0.3);
+      }
+      .text-neon-magenta {
+        color: #f0f;
+        text-shadow: 0 0 3px rgba(255, 0, 255, 0.7),
+          0 0 8px rgba(255, 0, 255, 0.3);
+      }
+      .bg-cyber {
+        background-color: rgba(30, 30, 50, 0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      /* Efeitos Visuais Aprimorados */
+
+      /* Animação para brilho de fundo */
+      @keyframes pulse-neon {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(0, 255, 255, 0.5),
+            0 0 10px rgba(255, 0, 255, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 15px rgba(0, 255, 255, 0.8),
+            0 0 30px rgba(255, 0, 255, 0.8);
+        }
+      }
+
+      /* Nova animação de pulso para o botão de diagnóstico, em tons de azul claro */
+      @keyframes pulse-blue {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(41, 121, 255, 0.5),
+            0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 15px rgba(41, 121, 255, 0.8),
+            0 0 30px rgba(0, 255, 255, 0.8);
+        }
+      }
+      .animate-pulse-blue {
+        animation: pulse-blue 4s infinite ease-in-out;
+      }
+
+      /* Nova animação de pulso para o botão "Comece Agora" branco */
+      @keyframes pulse-white {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+            0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+            0 0 30px rgba(255, 255, 255, 0.5);
+        }
+      }
+      .animate-pulse-white {
+        animation: pulse-white 4s infinite ease-in-out;
+      }
+
+      /* Aplica animação de brilho na borda dos cartões */
+      .card-effect {
+        border: 2px solid;
+        border-image: linear-gradient(to right, #0ff, #f0f) 1;
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        animation: pulse-neon 4s infinite ease-in-out;
+      }
+
+      /* Efeito de hover aprimorado */
+      .card-effect:hover {
+        transform: scale(1.03) translateY(-5px);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
+          0 0 40px rgba(255, 0, 255, 0.8);
+        border-image: linear-gradient(to right, #f0f, #0ff) 1; /* Inverte o gradiente no hover */
+      }
+
+      /* Animação de entrada para seções */
+      .fade-in-up {
+        animation: fadeInUp 1s forwards;
+        opacity: 0;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Estilos do Chatbot */
+      #chat-icon-container {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 1000;
+      }
+      #chat-icon {
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-image: linear-gradient(to right, #0ff, #f0f);
+        box-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+        transition: transform 0.3s ease;
+      }
+      #chat-icon:hover {
+        transform: scale(1.1);
+      }
+      #chat-window {
+        position: fixed;
+        bottom: 100px;
+        right: 24px;
+        width: 350px;
+        height: 500px;
+        background-color: #1a1a30;
+        border: 2px solid #0ff;
+        border-radius: 12px;
+        box-shadow: 0 0 15px #0ff, 0 0 30px #f0f;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 1000;
+      }
+      #chat-header {
+        padding: 12px;
+        background-color: #2a2a4a;
+        border-bottom: 2px solid #0ff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #chat-messages {
+        flex-grow: 1;
+        padding: 16px;
+        overflow-y: auto;
+        background-color: #12122a;
+      }
+      .chat-message {
+        margin-bottom: 8px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        max-width: 80%;
+      }
+      .message-ai {
+        background-color: #3e3e60;
+        align-self: flex-start;
+        border-radius: 12px 12px 12px 0;
+        border: 1px solid #0ff;
+      }
+      .message-user {
+        background-color: #0ff;
+        color: #1a1a30;
+        align-self: flex-end;
+        margin-left: auto;
+        border-radius: 12px 12px 0 12px;
+      }
+      #chat-input-container {
+        display: flex;
+        padding: 12px;
+        border-top: 2px solid #f0f;
+        background-color: #2a2a4a;
+      }
+      #chat-input {
+        flex-grow: 1;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid #5a5a8a;
+        background-color: #1a1a30;
+        color: #d1d1f0;
+        margin-right: 8px;
+      }
+      #chat-send-btn {
+        padding: 8px 16px;
+        border-radius: 20px;
+        background-image: linear-gradient(to right, #0ff, #f0f);
+        color: #1a1a30;
+        font-weight: bold;
+      }
+      .text-neon-glow {
+        text-shadow: 0 0 5px #f0f, 0 0 10px #f0f;
+      }
+      .faq-question {
+        background-color: #1a1a30;
+        border: 1px solid #3e3e60;
+        cursor: pointer;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+      .faq-question:hover {
+        border-color: #0ff;
+      }
+      .faq-answer {
+        background-color: #0d0d1a;
+        padding: 1rem;
+        border: 1px solid #3e3e60;
+        border-top: none;
+        display: none;
+      }
+      .team-member-card {
+        background-color: rgba(30, 30, 50, 0.5);
+        border: 2px solid;
+        border-image: linear-gradient(to right, #0ff, #f0f) 1;
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+      }
+
+      /* Efeito de partículas no fundo */
+      .bg-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="4" height="4"%3E%3Cpath d="M1 1h1v1H1V1zm2 2h1v1H3V3z" fill="%234A4A6A" opacity=".3"%3E%3C/path%3E%3C/svg%3E');
+        animation: background-move 60s linear infinite;
+      }
+
+      @keyframes background-move {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 400px 400px;
+        }
+      }
+
+      /* Novo gradiente para o botão de diagnóstico */
+      .bg-gradient-blue {
+        background-image: linear-gradient(to right, #0ff, #2979ff);
+      }
+
+      /* Efeitos para links de navegação */
+      .nav-link-effect {
+        position: relative;
+        transition: color 0.3s ease-in-out, transform 0.3s ease;
+        text-shadow: 0 0 1px #d1d1f0;
+      }
+
+      .nav-link-effect::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-image: linear-gradient(to right, #0ff, #f0f);
+        transition: width 0.3s ease-in-out;
+      }
+
+      .nav-link-effect:hover {
+        color: #fff;
+        transform: translateY(-2px);
+        text-shadow: 0 0 5px #fff, 0 0 10px #0ff, 0 0 20px #f0f;
+      }
+
+      .nav-link-effect:hover::after {
+        width: 100%;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        background-color: #1a1a30;
+        border: 1px solid #3e3e60;
+        color: #d1d1f0;
+      }
+    </style>
+  </head>
+  <body class="bg-[#0d0d1a] text-[#d1d1f0]">
+    <!-- Navbar/Cabeçalho Cyberpunk -->
+    <nav
+      class="sticky top-0 z-50 bg-[#0d0d1a]/80 backdrop-blur-md border-b border-[#2a2a4a]"
+    >
+      <div
+        class="container mx-auto px-6 py-4 flex flex-wrap justify-center items-center"
+      >
+        <div
+          class="flex flex-wrap justify-center space-x-6 items-center text-sm font-medium"
+        >
+          <a
+            href="#tecnologia"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Tecnologia</a
+          >
+          <a
+            href="#servicos"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Serviços</a
+          >
+          <a
+            href="#produtos"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Produtos</a
+          >
+          <a
+            href="#recursos"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Recursos</a
+          >
+          <a
+            href="#casos"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Estudos de Caso</a
+          >
+          <a
+            href="#beneficios"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Benefícios</a
+          >
+          <a
+            href="#comparativo"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Comparativo</a
+          >
+          <a
+            href="#depoimentos"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Depoimentos</a
+          >
+          <a
+            href="#planos"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Planos</a
+          >
+          <a
+            href="#equipe"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Equipe</a
+          >
+          <a
+            href="#faq"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >FAQ</a
+          >
+          <a
+            href="#blog"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Blog</a
+          >
+          <a
+            href="#contato"
+            class="nav-link-effect hover:text-neon-cyan transition-colors duration-300"
+            >Contato</a
+          >
+          <a
+            href="#cta"
+            class="bg-white text-gray-900 font-bold py-2 px-6 rounded-full hover:scale-105 transition-transform duration-300 animate-pulse-white"
+          >
+            Comece Agora
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Seção 1: Proposta de Valor (Hero) -->
+    <header class="relative overflow-hidden py-24 md:py-32">
+      <div class="bg-particles"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#0d0d1a] to-purple-950 opacity-50"
+      ></div>
+      <div class="container mx-auto px-6 text-center relative z-10 fade-in-up">
+        <a
+          href="#"
+          class="text-4xl md:text-6xl font-extrabold text-white tracking-wider"
+        >
+          Gettraffiki<span class="text-neon-cyan">.com</span>
+        </a>
+        <h1
+          class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight"
+        >
+          Dobre seu <span class="text-white">ROI</span> e Escalone seu Tráfego
+          Pago com a
+          <span class="text-neon-magenta">Inteligência Artificial</span> da
+          Gettraffiki.com
+        </h1>
+        <p class="text-lg md:text-xl max-w-4xl mx-auto mb-10 text-gray-400">
+          Cansado de queimar dinheiro em anúncios? Nossa IA otimiza suas
+          campanhas 24/7, garantindo o melhor resultado para o seu negócio.
+        </p>
+        <div
+          class="flex flex-col md:flex-row justify-center items-center gap-4"
+        >
+          <a
+            href="#cta"
+            class="bg-gradient-blue text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 animate-pulse-blue"
+          >
+            Quero um Diagnóstico Gratuito!
+          </a>
+          <a
+            href="#planos"
+            class="bg-transparent border border-[#0ff] text-neon-cyan font-bold py-3 px-8 rounded-full transform transition-all duration-300 hover:bg-[#0ff] hover:text-gray-900"
+          >
+            Conheça Nossos Planos
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Seção de Serviços -->
+    <section id="servicos" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta"
+        >
+          Nossos Serviços Impulsionados por IA
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-magenta">
+              Otimização de Campanhas
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Automatizamos a otimização de lances, segmentação e posicionamento
+              para maximizar seu ROI em plataformas como Google Ads e Facebook
+              Ads.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-magenta">
+              Análise Preditiva de Mercado
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Utilizamos modelos preditivos para identificar as próximas
+              tendências e oportunidades de mercado, permitindo que você se
+              antecipe à concorrência.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-magenta">
+              Geração de Criativos
+            </h3>
+            <p class="text-gray-400 text-sm">
+              A nossa IA gera variações de anúncios, títulos e descrições,
+              testando e selecionando as combinações de maior performance para
+              você.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Produtos -->
+    <section id="produtos" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan"
+        >
+          Nossos Produtos
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-cyan">
+              Gettraffiki Core
+            </h3>
+            <p class="text-gray-400 text-sm">
+              A plataforma central de otimização de campanhas, com IA que
+              aprende e se adapta ao seu público e mercado.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-cyan">
+              Gettraffiki Insights
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Módulo de análise preditiva que oferece insights acionáveis sobre
+              tendências de mercado e comportamento do consumidor.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-cyan">
+              Gettraffiki Creative
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Ferramenta de IA para geração e otimização de criativos, títulos e
+              descrições de anúncios.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Recursos -->
+    <section id="recursos" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta"
+        >
+          Principais Recursos
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-xl font-bold mb-2 text-neon-magenta">
+              Automação de Lances
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Otimizamos seus lances em tempo real para garantir o melhor
+              custo-benefício.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-xl font-bold mb-2 text-neon-magenta">
+              Análise de Concorrentes
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Analise a estratégia de seus concorrentes e encontre novas
+              oportunidades.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-xl font-bold mb-2 text-neon-magenta">
+              Segmentação Inteligente
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Identificamos os segmentos de público mais promissores para suas
+              campanhas.
+            </p>
+          </div>
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-xl font-bold mb-2 text-neon-magenta">
+              Testes A/B Automatizados
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Nossa IA realiza e analisa testes A/B de forma contínua para
+              encontrar a melhor combinação.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Tecnologia -->
+    <section id="tecnologia" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan"
+        >
+          A Tecnologia por Trás da Mágica
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Módulo 1 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-cyan">
+              Algoritmos de Otimização
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Nossos modelos de machine learning analisam bilhões de dados em
+              tempo real para ajustar lances, segmentação e criativos
+              automaticamente, maximizando seu retorno sobre o investimento
+              (ROI).
+            </p>
+          </div>
+          <!-- Módulo 2 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-cyan">
+              Análise de Dados Preditiva
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Prevemos tendências de mercado e o comportamento do consumidor,
+              permitindo que suas campanhas se antecipem à concorrência e
+              capturem as melhores oportunidades antes que elas se tornem
+              evidentes para os outros.
+            </p>
+          </div>
+          <!-- Módulo 3 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <h3 class="text-2xl font-bold mb-4 text-neon-cyan">
+              Interface de Comando
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Um painel de controle intuitivo e personalizável onde você
+              visualiza todas as métricas em tempo real, com gráficos
+              interativos e projeções futuras, como em um console de nave
+              espacial.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Estudos de Caso -->
+    <section id="casos" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan"
+        >
+          Estudos de Caso
+        </h2>
+        <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <!-- Caso 1 -->
+          <div
+            class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-white">
+              Empresa de E-commerce de Eletrônicos
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              Com a otimização da nossa IA, a CyberShop aumentou as vendas em
+              150% e reduziu o custo por conversão em 40% em 3 meses.
+            </p>
+            <a href="#" class="text-neon-magenta hover:underline font-bold"
+              >Ver estudo completo &rarr;</a
+            >
+          </div>
+          <!-- Caso 2 -->
+          <div
+            class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-magenta/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-white">
+              Agência de Marketing B2B
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              A TechGrowth otimizou suas campanhas de geração de leads,
+              resultando em um aumento de 200% em leads qualificados e um
+              crescimento de 50% na base de clientes.
+            </p>
+            <a href="#" class="text-neon-cyan hover:underline font-bold"
+              >Ver estudo completo &rarr;</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Benefícios -->
+    <section id="beneficios" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight text-neon-magenta"
+        >
+          Por que a Gettraffiki.com é a sua melhor escolha?
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Benefício 1 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <div
+              class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-2 text-white">
+              Otimização 24/7
+            </h3>
+            <p class="text-center text-gray-400 text-sm">
+              Nossa IA trabalha o tempo todo, ajustando lances e criativos para
+              o máximo de performance, mesmo enquanto você descansa.
+            </p>
+          </div>
+          <!-- Benefício 2 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <div
+              class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19V6l12-3v13m-6 0H9m12 0v8a2 2 0 01-2 2H9a2 2 0 01-2-2v-8m8-13v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-8"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-2 text-white">
+              Análise Preditiva
+            </h3>
+            <p class="text-center text-gray-400 text-sm">
+              Prevemos o comportamento do seu público para segmentar com
+              precisão cirúrgica, direcionando seus anúncios para quem realmente
+              compra.
+            </p>
+          </div>
+          <!-- Benefício 3 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <div
+              class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.536 8.464a5 5 0 010 7.072m2.121-2.121a2 2 0 010 2.828m2.121-5.656a7 7 0 010 9.9"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-2 text-white">
+              Criação de Anúncios
+            </h3>
+            <p class="text-center text-gray-400 text-sm">
+              Gere novas variações de títulos, textos e criativos com um clique,
+              baseados em dados de performance, para encontrar a combinação
+              perfeita.
+            </p>
+          </div>
+          <!-- Benefício 4 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <div
+              class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 17v-4m3 0v4m3-4v4m-9-8h10m4 0V9m-4 0V7m-4 0H9m-4 0h12m-6 0V5m-6 0a2 2 0 012-2h4l2 2h4a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-2 text-white">
+              Relatórios Transparentes
+            </h3>
+            <p class="text-center text-gray-400 text-sm">
+              Tenha acesso a painéis intuitivos com os dados mais importantes,
+              para que você saiba exatamente onde seu dinheiro está sendo
+              investido.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Comparativo -->
+    <section id="comparativo" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight text-neon-cyan"
+        >
+          Gettraffiki.com vs. O Método Tradicional
+        </h2>
+        <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+          <!-- Coluna 1: Método Tradicional -->
+          <div
+            class="p-10 bg-cyber rounded-2xl border-l-4 border-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)]"
+          >
+            <h3 class="text-2xl font-bold mb-6 text-white text-center">
+              Método Tradicional
+            </h3>
+            <ul class="space-y-5 text-gray-400">
+              <li class="flex items-center text-lg">
+                <svg
+                  class="h-6 w-6 text-red-500 flex-shrink-0 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+                <span>Otimização manual e demorada.</span>
+              </li>
+              <li class="flex items-center text-lg">
+                <svg
+                  class="h-6 w-6 text-red-500 flex-shrink-0 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+                <span>Estratégias baseadas em suposições.</span>
+              </li>
+              <li class="flex items-center text-lg">
+                <svg
+                  class="h-6 w-6 text-red-500 flex-shrink-0 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+                <span>Alto custo com profissionais.</span>
+              </li>
+            </ul>
+          </div>
+          <!-- Coluna 2: Gettraffiki.com -->
+          <div
+            class="p-10 bg-cyber text-white rounded-2xl border-l-4 border-green-400 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(152,251,152,0.5)]"
+          >
+            <h3 class="text-2xl font-bold mb-6 text-white text-center">
+              Gettraffiki.com
+            </h3>
+            <ul class="space-y-5">
+              <li class="flex items-center text-lg">
+                <svg
+                  class="h-6 w-6 text-green-400 flex-shrink-0 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Otimização automatizada por IA (24/7).</span>
+              </li>
+              <li class="flex items-center text-lg">
+                <svg
+                  class="h-6 w-6 text-green-400 flex-shrink-0 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Estratégias baseadas em dados em tempo real.</span>
+              </li>
+              <li class="flex items-center text-lg">
+                <svg
+                  class="h-6 w-6 text-green-400 flex-shrink-0 mr-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Custo-benefício incomparável.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section id="depoimentos" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta"
+        >
+          O Que Nossos Clientes Dizem
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Depoimento 1 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <p class="text-lg mb-6 italic text-gray-300">
+              "Nossos leads qualificados aumentaram 200% em apenas um mês. A IA
+              da Gettraffiki.com é um divisor de águas!"
+            </p>
+            <div class="flex items-center justify-center">
+              <div
+                class="w-12 h-12 bg-gray-600 rounded-full flex-shrink-0 mr-4"
+              ></div>
+              <div class="text-left">
+                <p class="font-bold text-white text-lg">Alex Chen</p>
+                <p class="text-sm text-gray-400">CEO, CyberCorp Solutions</p>
+              </div>
+            </div>
+          </div>
+          <!-- Depoimento 2 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <p class="text-lg mb-6 italic text-gray-300">
+              "Saímos do vermelho e alcançamos um ROI que nunca imaginei ser
+              possível. Simplesmente incrível!"
+            </p>
+            <div class="flex items-center justify-center">
+              <div
+                class="w-12 h-12 bg-gray-600 rounded-full flex-shrink-0 mr-4"
+              ></div>
+              <div class="text-left">
+                <p class="font-bold text-white text-lg">Isabela Santos</p>
+                <p class="text-sm text-gray-400">CMO, TechNexus</p>
+              </div>
+            </div>
+          </div>
+          <!-- Depoimento 3 -->
+          <div class="p-8 bg-cyber rounded-2xl card-effect">
+            <p class="text-lg mb-6 italic text-gray-300">
+              "A ferramenta é intuitiva e poderosa. A melhor decisão que tomamos
+              para nosso marketing digital."
+            </p>
+            <div class="flex items-center justify-center">
+              <div
+                class="w-12 h-12 bg-gray-600 rounded-full flex-shrink-0 mr-4"
+              ></div>
+              <div class="text-left">
+                <p class="font-bold text-white text-lg">Ricardo Farias</p>
+                <p class="text-sm text-gray-400">
+                  Fundador, Future Enterprises
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Planos -->
+    <section id="planos" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight text-neon-cyan"
+        >
+          Escolha o Plano Ideal para o seu Negócio
+        </h2>
+        <div class="grid lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+          <!-- Plano 1: Starter -->
+          <div
+            class="flex flex-col p-8 bg-cyber rounded-2xl border border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300"
+          >
+            <h3 class="text-2xl font-bold text-center mb-2 text-white">
+              Plano Starter
+            </h3>
+            <p class="text-center text-gray-400 mb-6">
+              Para quem está começando
+            </p>
+            <div class="text-center text-4xl font-bold mb-6 text-white">
+              R$ 499<span class="text-lg font-normal text-gray-400">/mês</span>
+            </div>
+            <ul class="space-y-4 mb-8 flex-1">
+              <li class="flex items-center text-gray-400">
+                <svg
+                  class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Otimização básica de campanhas</span>
+              </li>
+              <li class="flex items-center text-gray-400">
+                <svg
+                  class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Relatórios mensais</span>
+              </li>
+              <li class="flex items-center text-gray-400">
+                <svg
+                  class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Suporte por e-mail</span>
+              </li>
+            </ul>
+            <a
+              href="#cta"
+              class="block w-full text-center bg-gradient-neon text-gray-900 font-bold py-3 rounded-full hover:scale-105 transition duration-300"
+            >
+              Começar Agora
+            </a>
+          </div>
+          <!-- Plano 2: Pro (Destaque) -->
+          <div
+            class="flex flex-col p-10 bg-cyber rounded-2xl border-2 border-neon-magenta transform scale-105 shadow-[0_0_15px_rgba(255,0,255,0.7)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,0,255,0.9)] transition-all duration-300"
+          >
+            <h3 class="text-2xl font-bold text-center mb-2 text-neon-magenta">
+              Plano Pro
+            </h3>
+            <p class="text-center text-gray-300 mb-6">Para quem quer escalar</p>
+            <div class="text-center text-4xl font-bold mb-6 text-white">
+              R$ 999<span class="text-lg font-normal text-gray-400">/mês</span>
+            </div>
+            <ul class="space-y-4 mb-8 flex-1">
+              <li class="flex items-center text-white">
+                <svg
+                  class="h-5 w-5 text-green-400 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Tudo do Plano Starter +</span>
+              </li>
+              <li class="flex items-center text-white">
+                <svg
+                  class="h-5 w-5 text-green-400 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Análise Preditiva de audiência</span>
+              </li>
+              <li class="flex items-center text-white">
+                <svg
+                  class="h-5 w-5 text-green-400 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Criação automática de criativos</span>
+              </li>
+            </ul>
+            <a
+              href="#cta"
+              class="block w-full text-center bg-gradient-neon text-gray-900 font-bold py-3 rounded-full hover:scale-105 transition duration-300"
+            >
+              Assinar Plano Pro
+            </a>
+          </div>
+          <!-- Plano 3: Agência -->
+          <div
+            class="flex flex-col p-8 bg-cyber rounded-2xl border border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300"
+          >
+            <h3 class="text-2xl font-bold text-center mb-2 text-white">
+              Plano Agência
+            </h3>
+            <p class="text-center text-gray-400 mb-6">Para múltiplas contas</p>
+            <div class="text-center text-4xl font-bold mb-6 text-white">
+              Fale Conosco
+            </div>
+            <ul class="space-y-4 mb-8 flex-1">
+              <li class="flex items-center text-gray-400">
+                <svg
+                  class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Gestão de múltiplas contas</span>
+              </li>
+              <li class="flex items-center text-gray-400">
+                <svg
+                  class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Suporte dedicado</span>
+              </li>
+              <li class="flex items-center text-gray-400">
+                <svg
+                  class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Relatórios personalizados</span>
+              </li>
+            </ul>
+            <a
+              href="#cta"
+              class="block w-full text-center bg-gradient-neon text-gray-900 font-bold py-3 rounded-full hover:scale-105 transition duration-300"
+            >
+              Fale com um Consultor
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Nossa Equipe -->
+    <section id="equipe" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta"
+        >
+          Nossa Equipe
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div
+            class="team-member-card p-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)]"
+          >
+            <img
+              src="https://placehold.co/150x150/0f0/fff?text=CEO"
+              alt="Foto do CEO"
+              class="rounded-full w-32 h-32 mx-auto mb-4"
+            />
+            <h3 class="text-xl font-bold text-white mb-1">Jerri Junior</h3>
+            <p class="text-neon-cyan mb-4">CEO & Fundador</p>
+            <p class="text-gray-400 text-sm">
+              Visionário em IA e tráfego pago. Lidera a equipe com foco em
+              inovação e resultados em desenvolvimento atrás da IA, fazendo com
+              que a estrutura da empresa seja sólida.
+            </p>
+          </div>
+          <div
+            class="team-member-card p-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)]"
+          >
+            <img
+              src="https://placehold.co/150x150/0f0/fff?text=CFO"
+              alt="Foto do CFO"
+              class="rounded-full w-32 h-32 mx-auto mb-4"
+            />
+            <h3 class="text-xl font-bold text-white mb-1">LUIZ ARLINO</h3>
+            <p class="text-neon-cyan mb-4">CO & financeiro</p>
+            <p class="text-gray-400 text-sm">
+              Visionário em finanças e Lidera a equipe com foco em inovação e
+              resultado.
+            </p>
+          </div>
+          <!-- Card do CMO atualizado com as informações do Marcio Neto -->
+          <div
+            class="team-member-card p-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)]"
+          >
+            <img
+              src="https://placehold.co/150x150/0ff/fff?text=CMO"
+              alt="Foto do CMO"
+              class="rounded-full w-32 h-32 mx-auto mb-4"
+            />
+            <h3 class="text-xl font-bold text-white mb-1">Marcio Neto</h3>
+            <p class="text-neon-cyan mb-4">CMO</p>
+            <p class="text-gray-400 text-sm">
+              Gênio do marketing digital, focado em estratégias que geram
+              retorno real para nossos clientes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de FAQ -->
+    <section id="faq" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan"
+        >
+          Perguntas Frequentes
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4 text-left">
+          <!-- FAQ 1 -->
+          <div>
+            <div
+              class="faq-question text-lg font-medium text-white rounded-t-lg transition duration-300"
+            >
+              <span>Como a IA da Gettraffiki.com funciona?</span>
+              <svg
+                class="h-6 w-6 transform transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </div>
+            <div class="faq-answer rounded-b-lg">
+              <p class="text-gray-300">
+                Nossa IA utiliza algoritmos de machine learning para analisar
+                dados de mercado em tempo real. Com base nessa análise, ela
+                otimiza lances, segmentação e criativos de seus anúncios
+                automaticamente, buscando sempre o melhor ROI possível.
+              </p>
+            </div>
+          </div>
+          <!-- FAQ 2 -->
+          <div>
+            <div
+              class="faq-question text-lg font-medium text-white rounded-t-lg transition duration-300"
+            >
+              <span>Preciso ter conhecimento em tráfego pago para usar?</span>
+              <svg
+                class="h-6 w-6 transform transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </div>
+            <div class="faq-answer rounded-b-lg">
+              <p class="text-gray-300">
+                Não! A plataforma foi projetada para ser intuitiva e acessível
+                para todos. Nossa IA se encarrega das otimizações complexas, e
+                nosso painel simplificado permite que você acompanhe os
+                resultados sem ser um especialista.
+              </p>
+            </div>
+          </div>
+          <!-- FAQ 3 -->
+          <div>
+            <div
+              class="faq-question text-lg font-medium text-white rounded-t-lg transition duration-300"
+            >
+              <span>Qual a diferença do Plano Pro para o Starter?</span>
+              <svg
+                class="h-6 w-6 transform transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </div>
+            <div class="faq-answer rounded-b-lg">
+              <p class="text-gray-300">
+                O Plano Pro inclui todas as funcionalidades do Starter, mas com
+                a adição da Análise Preditiva de audiência e a Criação
+                Automática de Criativos, que são essenciais para quem busca
+                escalar seus resultados rapidamente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Blog -->
+    <section id="blog" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta"
+        >
+          Nosso Blog
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Post 1 -->
+          <div class="p-6 bg-cyber rounded-2xl card-effect">
+            <img
+              src="https://placehold.co/400x200/2a2a4a/fff?text=IA+e+Tráfego+Pago"
+              alt="Imagem do artigo 1"
+              class="rounded-lg mb-4 w-full"
+            />
+            <h3 class="text-xl font-bold mb-2 text-white">
+              5 Dicas para Otimizar seu Tráfego com IA
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              Descubra como pequenos ajustes podem gerar grandes resultados com
+              a ajuda da inteligência artificial.
+            </p>
+            <a href="#" class="text-neon-cyan hover:underline font-bold"
+              >Ler mais &rarr;</a
+            >
+          </div>
+          <!-- Post 2 -->
+          <div class="p-6 bg-cyber rounded-2xl card-effect">
+            <img
+              src="https://placehold.co/400x200/2a2a4a/fff?text=Futuro+do+Marketing"
+              alt="Imagem do artigo 2"
+              class="rounded-lg mb-4 w-full"
+            />
+            <h3 class="text-xl font-bold mb-2 text-white">
+              O Futuro é Agora: Como o Marketing Digital está Mudando
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              Uma análise profunda sobre as tendências que estão redefinindo a
+              indústria e como se preparar.
+            </p>
+            <a href="#" class="text-neon-cyan hover:underline font-bold"
+              >Ler mais &rarr;</a
+            >
+          </div>
+          <!-- Post 3 -->
+          <div class="p-6 bg-cyber rounded-2xl card-effect">
+            <img
+              src="https://placehold.co/400x200/2a2a4a/fff?text=Case+de+Sucesso"
+              alt="Imagem do artigo 3"
+              class="rounded-lg mb-4 w-full"
+            />
+            <h3 class="text-xl font-bold mb-2 text-white">
+              Estudo de Caso: Dobramos o ROI de um Cliente
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              Detalhes sobre como aplicamos nossa IA para gerar resultados
+              extraordinários para um dos nossos clientes.
+            </p>
+            <a href="#" class="text-neon-cyan hover:underline font-bold"
+              >Ler mais &rarr;</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section id="contato" class="py-20 md:py-32">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta"
+        >
+          Fale Conosco
+        </h2>
+        <div class="max-w-xl mx-auto contact-form">
+          <form action="#" method="POST" class="space-y-6">
+            <input
+              type="text"
+              name="name"
+              placeholder="Seu Nome Completo"
+              class="w-full px-5 py-3 rounded-lg border border-neon-cyan/50 focus:outline-none focus:ring-2 focus:ring-neon-magenta transition duration-300"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Seu E-mail"
+              class="w-full px-5 py-3 rounded-lg border border-neon-cyan/50 focus:outline-none focus:ring-2 focus:ring-neon-magenta transition duration-300"
+            />
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Sua Mensagem"
+              class="w-full px-5 py-3 rounded-lg border border-neon-cyan/50 focus:outline-none focus:ring-2 focus:ring-neon-magenta transition duration-300"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full bg-gradient-neon text-gray-900 font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition duration-300 transform"
+            >
+              Enviar Mensagem
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de CTA Final e Contato -->
+    <section id="cta" class="py-20 md:py-32 bg-[#12122a]">
+      <div class="container mx-auto px-6 text-center fade-in-up">
+        <h2
+          class="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight text-neon-cyan"
+        >
+          Pronto para Transformar Seus Resultados?
+        </h2>
+        <p class="text-lg md:text-xl mb-10 text-gray-400 max-w-2xl mx-auto">
+          Agende uma análise gratuita de 30 minutos e descubra como a
+          Gettraffiki.com pode gerar mais lucro para o seu negócio.
+        </p>
+        <div
+          class="flex flex-col md:flex-row justify-center items-center gap-6 max-w-5xl mx-auto"
+        >
+          <!-- Botão do WhatsApp - Destaque -->
+          <a
+            href="https://api.whatsapp.com/send/?phone=+55%2027%20999843190%20&text&type=phone_number&app_absent=0"
+            target="_blank"
+            class="flex-1 w-full max-w-sm flex items-center justify-center bg-gradient-to-r from-green-400 to-lime-500 text-gray-900 font-bold py-5 px-8 rounded-full shadow-[0_0_20px_rgba(34,197,94,0.7)] hover:scale-105 transition duration-300 transform"
+          >
+            <svg
+              class="inline-block h-8 w-8 mr-3"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.016 3c-4.992 0-9.048 4.056-9.048 9.048 0 1.584.416 3.12 1.184 4.544l-1.28 4.672 4.752-1.248a9.088 9.088 0 005.104 1.28c4.992 0 9.048-4.056 9.048-9.048C21.064 7.056 17.008 3 12.016 3zM16.48 15.616c-.256.624-.656.88-.992.928-.32.048-.544.08-.768.08-.24 0-.576-.08-.912-.176-.32-.096-1.52-.736-2.912-1.76-1.392-1.008-2.32-2.304-2.592-2.784-.272-.48-.032-.736.208-.976.224-.224.496-.56.672-.736.192-.208.256-.464.384-.752.128-.272.064-.464-.016-.624-.08-.176-.736-1.872-1.008-2.528-.272-.656-.544-.544-.752-.544-.208 0-.464-.048-.72-.048-.256 0-.672.08-.992.496-.32.416-1.184 1.152-1.184 2.808 0 1.656 1.208 3.232 1.392 3.44.176.208 2.384 3.792 5.76 5.168 3.376 1.376 3.408 1.072 4.048 1.04.64-.032 1.84-.752 2.112-1.472.272-.72.272-.672.192-.896-.08-.224-.304-.336-.624-.496z"
+              />
+            </svg>
+            Falar pelo WhatsApp
+          </a>
+          <!-- Botões de outras redes -->
+          <a
+            href="https://www.instagram.com/traffiki.com"
+            target="_blank"
+            class="w-full md:w-auto p-4 rounded-full border border-[#f0f] text-neon-magenta hover:bg-[#f0f] hover:text-gray-900 transition-colors duration-300"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.772 1.915 4.981 4.981.058 1.266.07 1.646.07 4.85v.07c0 3.204-.012 3.584-.07 4.85-2.092 3.313-4.103 4.95-9.155 4.95-5.052 0-7.063-1.637-9.155-4.95-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.209-3.066 1.73-4.833 4.981-4.981 1.266-.058 1.646-.07 4.85-.07zm0 2.45c-2.88 0-3.18.01-4.22.06a3.57 3.57 0 00-2.525 2.524c-.05 1.04-.06 1.34-.06 4.22 0 2.88.01 3.18.06 4.22a3.57 3.57 0 002.525 2.524c1.04.05 1.34.06 4.22.06s3.18-.01 4.22-.06a3.57 3.57 0 002.525-2.524c.05-1.04.06-1.34.06-4.22s-.01-3.18-.06-4.22a3.57 3.57 0 00-2.525-2.524c-1.04-.05-1.34-.06-4.22-.06zm0 2.86a4.22 4.22 0 110 8.44 4.22 4.22 0 010-8.44zm0 2.22a2 2 0 100 4 2 2 0 000-4zm6.495-.21a1.01 1.01 0 11-2.02 0 1.01 1.01 0 012.02 0z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/mynetwork/grow"
+            target="_blank"
+            class="w-full md:w-auto p-4 rounded-full border border-[#f0f] text-neon-magenta hover:bg-[#f0f] hover:text-gray-900 transition-colors duration-300"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22.23 0H1.77C.79 0 0 .79 0 1.77v20.46C0 23.21.79 24 1.77 24h20.46c.98 0 1.77-.79 1.77-1.77V1.77C24 .79 23.21 0 22.23 0zM7.05 20.23H3.82V9.66h3.23v10.57zM5.44 8.2c-1.09 0-1.9-.84-1.9-1.89 0-1.04.81-1.88 1.9-1.88s1.9.84 1.9 1.88c.01 1.05-.8 1.89-1.9 1.89zm13.79 12.03h-3.23v-5.18c0-1.24-.03-2.84-1.73-2.84-1.73 0-2 1.34-2 2.75v5.27h-3.23V9.66h3.1v1.49h.04c.44-.84 1.5-1.73 3.06-1.73 3.27 0 3.88 2.15 3.88 4.95v5.86z"
+              />
+            </svg>
+          </a>
+          <a
+            href="mailto:contato@traffiki.com"
+            class="w-full md:w-auto p-4 rounded-full border border-[#f0f] text-neon-magenta hover:bg-[#f0f] hover:text-gray-900 transition-colors duration-300"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4L12 13 4 8V6l8 5 8-5v2z"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <form action="#" method="POST" class="mt-12 max-w-xl mx-auto space-y-6">
+          <input
+            type="text"
+            name="name"
+            placeholder="Seu Nome Completo"
+            class="w-full px-5 py-3 rounded-lg bg-[#2a2a4a] text-white border border-neon-cyan/50 focus:outline-none focus:ring-2 focus:ring-neon-magenta transition duration-300"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Seu Melhor E-mail"
+            class="w-full px-5 py-3 rounded-lg bg-[#2a2a4a] text-white border border-neon-cyan/50 focus:outline-none focus:ring-2 focus:ring-neon-magenta transition duration-300"
+          />
+          <button
+            type="submit"
+            class="w-full bg-white text-gray-900 font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition duration-300 transform animate-pulse-white"
+          >
+            Enviar e Agendar Análise
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-10 bg-[#0d0d1a] border-t border-[#2a2a4a] text-gray-400">
+      <div class="container mx-auto px-6 text-center">
+        <p>&copy; 2024 Gettraffiki.com. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Chatbot Container e Lógica -->
+    <div id="chat-icon-container">
+      <div id="chat-icon">
+        <svg
+          class="w-8 h-8 text-gray-900"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div id="chat-window">
+      <div id="chat-header">
+        <h3 class="text-white text-lg font-bold">Suporte Gettraffiki.com</h3>
+        <button
+          id="close-chat-btn"
+          class="text-white hover:text-red-500 transition-colors duration-300"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div id="chat-messages" class="flex flex-col space-y-4">
+        <div class="chat-message message-ai">
+          Olá! Eu sou o assistente de IA da Gettraffiki.com. Como posso ajudar
+          você hoje?
+        </div>
+      </div>
+      <div id="chat-input-container">
+        <input
+          type="text"
+          id="chat-input"
+          placeholder="Digite sua mensagem..."
+        />
+        <button id="chat-send-btn">Enviar</button>
+      </div>
+    </div>
+
+    <script>
+      const chatIcon = document.getElementById("chat-icon");
+      const chatWindow = document.getElementById("chat-window");
+      const closeChatBtn = document.getElementById("close-chat-btn");
+      const chatInput = document.getElementById("chat-input");
+      const chatSendBtn = document.getElementById("chat-send-btn");
+      const chatMessages = document.getElementById("chat-messages");
+      const faqQuestions = document.querySelectorAll(".faq-question");
+
+      chatIcon.addEventListener("click", () => {
+        chatWindow.style.display = "flex";
+      });
+
+      closeChatBtn.addEventListener("click", () => {
+        chatWindow.style.display = "none";
+      });
+
+      faqQuestions.forEach((question) => {
+        question.addEventListener("click", () => {
+          const answer = question.nextElementSibling;
+          const icon = question.querySelector("svg");
+
+          // Fecha todas as outras respostas
+          faqQuestions.forEach((otherQuestion) => {
+            if (otherQuestion !== question) {
+              otherQuestion.nextElementSibling.style.display = "none";
+              otherQuestion.querySelector("svg").classList.remove("rotate-180");
+            }
+          });
+
+          // Abre/fecha a resposta clicada
+          if (answer.style.display === "block") {
+            answer.style.display = "none";
+            icon.classList.remove("rotate-180");
+          } else {
+            answer.style.display = "block";
+            icon.classList.add("rotate-180");
+          }
+        });
+      });
+
+      chatSendBtn.addEventListener("click", sendMessage);
+      chatInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      function sendMessage() {
+        const messageText = chatInput.value.trim();
+        if (messageText === "") return;
+
+        // Exibe a mensagem do usuário
+        const userMessageElement = document.createElement("div");
+        userMessageElement.classList.add("chat-message", "message-user");
+        userMessageElement.textContent = messageText;
+        chatMessages.appendChild(userMessageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        chatInput.value = "";
+
+        // Exibe indicador de digitação da IA
+        const typingIndicator = document.createElement("div");
+        typingIndicator.classList.add("chat-message", "message-ai");
+        typingIndicator.innerHTML = "Digitando...";
+        chatMessages.appendChild(typingIndicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        callGeminiAPI(messageText, typingIndicator);
+      }
+
+      async function callGeminiAPI(prompt, typingIndicator) {
+        let chatHistory = [
+          {
+            role: "user",
+            parts: [
+              {
+                text: "Você é um assistente de IA amigável e útil para Gettraffiki.com, um serviço de gerenciamento de tráfego com IA. Responda à pergunta do usuário sobre nossos serviços.",
+              },
+            ],
+          },
+        ];
+        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+        const payload = { contents: chatHistory };
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+
+          // Remove o indicador de digitação
+          chatMessages.removeChild(typingIndicator);
+
+          if (
+            result.candidates &&
+            result.candidates.length > 0 &&
+            result.candidates[0].content &&
+            result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0
+          ) {
+            const text = result.candidates[0].content.parts[0].text;
+            const aiMessageElement = document.createElement("div");
+            aiMessageElement.classList.add("chat-message", "message-ai");
+            aiMessageElement.textContent = text;
+            chatMessages.appendChild(aiMessageElement);
+          } else {
+            const errorMessageElement = document.createElement("div");
+            errorMessageElement.classList.add("chat-message", "message-ai");
+            errorMessageElement.textContent =
+              "Desculpe, não consegui gerar uma resposta. Por favor, tente novamente.";
+            chatMessages.appendChild(errorMessageElement);
+          }
+        } catch (error) {
+          console.error("Erro ao chamar a API do Gemini:", error);
+          chatMessages.removeChild(typingIndicator);
+          const errorMessageElement = document.createElement("div");
+          errorMessageElement.classList.add("chat-message", "message-ai");
+          errorMessageElement.textContent =
+            "Houve um problema de conexão. Por favor, tente novamente mais tarde.";
+          chatMessages.appendChild(errorMessageElement);
+        }
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    </script>
+  </body>
+</html>
